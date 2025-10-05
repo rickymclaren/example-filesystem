@@ -314,6 +314,16 @@ vdp_wait:
         jp      z,vdp_wait
         ret
 
+; XXX fix this to work on the Retro!
+if 0
+        in      a,(.joy0)
+        and     0x02
+        jr      nz,vdp_wait
+        in      a,(.vdp_reg)
+        ret
+endif
+
+
 
 ;**********************************************************************
 ; Copy a given memory buffer into the VDP buffer
