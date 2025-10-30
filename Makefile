@@ -8,6 +8,7 @@ all:: disk.img
 # assume that there will be one .com file that is built for each .asm file
 SRC=$(wildcard progs/*/*.asm)
 PROGS=$(SRC:%.asm=%.com)
+PROGS+=$(wildcard progs/*/*.bas)
 PROG_DIRS=$(sort $(dir $(SRC)))
 
 TOP=.
