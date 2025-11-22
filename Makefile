@@ -34,9 +34,9 @@ disk.img: $(PROGS)
 
 
 # files to overwrite onto CP/M drive D 
-burn3: disk3.img
-	@ if [ -z "$(PROGS3)" ]; then\
-		echo "PROGS3 is empty, nothing to do!"; \
+burn_d: disk_d.img
+	@ if [ -z "$(PROGS_D)" ]; then\
+		echo "PROGS_D is empty, nothing to do!"; \
 		false; \
 	fi
 	@ if [ `hostname` != "$(SD_HOSTNAME)" -o ! -b "$(SD_DEV)" ]; then\
@@ -44,21 +44,22 @@ burn3: disk3.img
 		false; \
 	fi
 	sudo dd if=$< of=$(SD_DEV) bs=512 seek=3x16384 conv=fsync
-disk3.img: $(PROGS3)
-	@ if [ -z "$(PROGS3)" ]; then\
-		echo "PROGS3 is empty, nothing to do!"; \
+disk_d.img: $(PROGS_D)
+	@ if [ -z "$(PROGS_D)" ]; then\
+		echo "PROGS_D is empty, nothing to do!"; \
 		false; \
 	fi
 	rm -f $@
 	mkfs.cpm -f $(DISKDEF) $@
 	cpmcp -f $(DISKDEF) $@ $^ 0:
-ls:: disk3.img
-	cpmls -f $(DISKDEF) disk3.img
+ls:: disk_d.img
+	cpmls -f $(DISKDEF) disk_d.img
+
 
 # files to overwrite onto CP/M drive B
-burn1: disk1.img
-	@ if [ -z "$(PROGS1)" ]; then\
-		echo "PROGS1 is empty, nothing to do!"; \
+burn_b: disk_b.img
+	@ if [ -z "$(PROGS_B)" ]; then\
+		echo "PROGS_B is empty, nothing to do!"; \
 		false; \
 	fi
 	@ if [ `hostname` != "$(SD_HOSTNAME)" -o ! -b "$(SD_DEV)" ]; then\
@@ -66,23 +67,23 @@ burn1: disk1.img
 		false; \
 	fi
 	sudo dd if=$< of=$(SD_DEV) bs=512 seek=1x16384 conv=fsync
-disk1.img: $(PROGS1)
-	@ if [ -z "$(PROGS1)" ]; then\
-		echo "PROGS1 is empty, nothing to do!"; \
+disk_b.img: $(PROGS_B)
+	@ if [ -z "$(PROGS_B)" ]; then\
+		echo "PROGS_B is empty, nothing to do!"; \
 		false; \
 	fi
 	rm -f $@
 	mkfs.cpm -f $(DISKDEF) $@
 	cpmcp -f $(DISKDEF) $@ $^ 0:
-ls:: disk1.img
-	cpmls -f $(DISKDEF) disk1.img
+ls:: disk_b.img
+	cpmls -f $(DISKDEF) disk_b.img
 
 
 %.com: %.asm
 	make -C $(dir $@) $(notdir $@)
 
 clean:
-	rm -f disk.img disk3.img disk1.img
+	rm -f disk.img disk_d.img disk_b.img
 	for i in $(PROG_DIRS); do make -C $$i clean; done
 
 
