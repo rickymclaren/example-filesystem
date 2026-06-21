@@ -31,8 +31,8 @@ ls:: disk.img
 disk.img:
 	rm -f $@
 	mkfs.cpm -f $(DISKDEF) $@
-	cpmcp -f $(DISKDEF) -T raw $@ mbasic/mbasic.com 0:
-	cpmcp -f $(DISKDEF) -T raw $@ sargon/sargon.com 0:
+	cpmcp -f $(DISKDEF) -T raw $@ mbasic/MBASIC.COM 0:
+	cpmcp -f $(DISKDEF) -T raw $@ sargon/SARGON.COM 0:
 	cpmcp -f $(DISKDEF) -T raw $@ zork/ZORK*.COM 0:
 	cpmcp -f $(DISKDEF) -T raw $@ zork/ZORK*.DAT 0:
 	cpmcp -f $(DISKDEF) -T raw $@ startrek/startrek.bas 0:
