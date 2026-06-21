@@ -28,7 +28,7 @@ ls:: disk.img
 	cpmls -f $(DISKDEF) disk.img
 
 
-disk.img: mbasic sargon zork startrek planetfall hitchhiker leather
+disk.img:
 	rm -f $@
 	mkfs.cpm -f $(DISKDEF) $@
 	cpmcp -f $(DISKDEF) -T raw $@ mbasic/mbasic.com 0:
@@ -89,39 +89,6 @@ ls:: disk_b.img
 
 %.com: %.asm
 	make -C $(dir $@) $(notdir $@)
-
-adventure:
-	wget -P adventure https://ifarchive.org/if-archive/games/cpm/cpm-advent.zip
-	unzip -d adventure adventure/cpm-advent.zip
-
-mbasic:
-	wget -P mbasic http://www.retroarchive.org/cpm/lang/mbasic.zip
-	unzip -d mbasic mbasic/mbasic.zip
-
-sargon:
-	wget -P sargon http://www.retroarchive.org/cpm/games/sargon.zip
-	unzip -d sargon sargon/sargon.zip
-
-zork:
-	wget -P zork http://www.retroarchive.org/cpm/games/zork123_80.zip
-	unzip -d zork zork/zork123_80.zip
-
-startrek:
-	wget -P startrek "https://raw.githubusercontent.com/RC2014Z80/RC2014/master/BASIC-Programs/Super Startrek/startrek.bas"
-
-planetfall:
-	wget -P planetfall http://www.z80.eu/downloads/planetfall.zip
-	unzip -d planetfall planetfall/planetfall.zip
-
-hitchhiker:
-	wget -P hitchhiker http://www.z80.eu/downloads/hitchhiker.zip
-	unzip -d hitchhiker hitchhiker/hitchhiker.zip
-
-leather:
-	wget -P leather http://www.z80.eu/downloads/leathergoddesses.zip
-	unzip -d leather leather/leathergoddesses.zip
-
-
 
 clean:
 	rm -f disk.img disk_d.img disk_b.img
